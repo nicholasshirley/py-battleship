@@ -56,19 +56,28 @@ will be maintained. The board will be numbered as follows:
 * Y-axis - numeric
 
 All numeric values are used for convenience, the more familiar
-numeric/alpah combination will be added later.
+numeric/alpha combination will be added later.
 
 The board is initialized as an empty array. Ships are then placed 
-using 3 values (ship code, x pos, y pos). The format is:
+using 4 values (ship code, x pos, y pos, direction). The format is:
 
 ```
-[[ship_number, x-pos, y-pos]...]
+[ship_number, [x-pos, y-pos], direction]
 ```
 
-Example, battleship in the upper left corner lying horizontally:
+where a direction of 0 = horizontal and a direction of 1 = vertical.
+
+Examples:
+
+battleship in the upper left corner lying horizontally:
 
 ```
-battleship = [[2, 1, 10],[2, 2, 10], [2, 3, 10], [2, 4, 10]]
+battleship = [2, [1, 10], 0]
+```
+battleship in the middle of the board lying vertically:
+
+```
+battleship = [2, [5, 6], 1]
 ```
 
 ## Win conditions

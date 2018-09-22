@@ -12,7 +12,12 @@ def _battleship():
     global battleship
 
     ship_number = 2
+    ship_size = 4
 
+    # assign battlehsip placement
+    battleship = _set_origin(ship_size, ship_number)
+
+def _set_origin(ship_size, ship_number):
     # 0 = horizontal
     # 1 = vertical
     direction = random.randint(0, 1)
@@ -21,25 +26,25 @@ def _battleship():
     # other than the game board boundaries
     origin = [random.randint(1, 10), random.randint(1, 10)]
 
-    origin = _adjust_position(direction, origin[0], origin[1])
+    origin = _adjust_position(direction, origin[0], origin[1], ship_size)
 
-    # assign battlehsip placement
-    battleship = [ship_number, origin, direction]
 
-def _adjust_position(direction, x, y):
+    return [ship_number, origin, direction]
+
+def _adjust_position(direction, x, y, ship_size):
     # adjust the origin so the ship doesn't overrun
     # the boundaries of the game board
     if direction == 0:
-        if x > 7:
-            x = (x) + (7 - x)
+        if x > (10 - (ship_size - 1)):
+            x = x + (ship_size - 1) - x
             return [x, y]
         else:
             return [x, y]
     elif direction == 1:
-        if y < 4:
-            y = (y) - (y - 4)
-            return [direction, x, y]
+        if y < ship_size:
+            y = (y) - (y - ship_size)
+            return [x, y]
         else:
-            return [direction, x, y]
+            return [x, y]
 
 
