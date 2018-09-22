@@ -9,11 +9,23 @@ submarine = []
 destroyer = []
 
 def set_up_ships():
-    _carrier()
-    _battleship()
-    _cruiser()
-    _submarine()
-    _destroyer()
+    # Ship numbers are as follows:
+    # 1 - Carrier
+    # 2 - Battleship
+    # 3 - Cruiser
+    # 4 - Submarine
+    # 5 - Destroyer
+
+    ship_list = [
+            ["carrier", 1, 5],
+            ["battleship", 2, 4],
+            ["cruiser", 3, 3],
+            ["submarine", 4, 3],
+            ["destroyer", 5, 2]
+            ]
+
+    for x in ship_list:
+        _set_origin(x[0], x[1], x[2])
 
     print(carrier)
     print(battleship)
@@ -21,51 +33,13 @@ def set_up_ships():
     print(submarine)
     print(destroyer)
 
-def _carrier():
+def _set_origin(ship, ship_number, ship_size):
     global carrier
-
-    ship_number = 1
-    ship_size = 5
-
-    # assign carrier placement
-    carrier = _set_origin(ship_size, ship_number)
-
-def _battleship():
     global battleship
-
-    ship_number = 2
-    ship_size = 4
-
-    # assign battlehsip placement
-    battleship = _set_origin(ship_size, ship_number)
-
-def _cruiser():
     global cruiser
-
-    ship_number = 3
-    ship_size = 3
-
-    # assign battlehsip placement
-    cruiser = _set_origin(ship_size, ship_number)
-
-def _submarine():
     global submarine
-
-    ship_number = 4
-    ship_size = 3
-
-    # assign battlehsip placement
-    submarine = _set_origin(ship_size, ship_number)
-
-def _destroyer():
     global destroyer
 
-    ship_number = 5
-    ship_size = 2
-
-    # assign battlehsip placement
-    destroyer = _set_origin(ship_size, ship_number)
-def _set_origin(ship_size, ship_number):
     # 0 = horizontal
     # 1 = vertical
     direction = random.randint(0, 1)
@@ -76,8 +50,7 @@ def _set_origin(ship_size, ship_number):
 
     origin = _adjust_position(direction, origin[0], origin[1], ship_size)
 
-
-    return [ship_number, origin, direction]
+    globals()[ship] = [ship_number, origin, direction]
 
 def _adjust_position(direction, x, y, ship_size):
     # adjust the origin so the ship doesn't overrun
