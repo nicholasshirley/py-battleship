@@ -2,11 +2,10 @@ import math
 import random
 
 # define ships
-carrier = []
-battleship = []
-cruiser = []
-submarine = []
-destroyer = []
+ship_list = {
+        'computer': {},
+        'user': {}
+        }
 
 def set_up_ships():
     # Ship numbers are as follows:
@@ -17,27 +16,24 @@ def set_up_ships():
     # 5 - Destroyer (size: 2)
 
     ship_list = [
-            ["carrier", 1, 5],
-            ["battleship", 2, 4],
-            ["cruiser", 3, 3],
-            ["submarine", 4, 3],
-            ["destroyer", 5, 2]
+            ["computer", "carrier", 1, 5],
+            ["computer", "battleship", 2, 4],
+            ["computer", "cruiser", 3, 3],
+            ["computer", "submarine", 4, 3],
+            ["computer", "destroyer", 5, 2],
+            ["user", "carrier", 1, 5],
+            ["user", "battleship", 2, 4],
+            ["user", "cruiser", 3, 3],
+            ["user", "submarine", 4, 3],
+            ["user", "destroyer", 5, 2]
             ]
 
-    for x in ship_list:
-        _set_origin(x[0], x[1], x[2])
+    for ships in ship_list:
+        _set_origin(ships[0], ships[1], ships[2], ships[3])
 
-    return [
-            carrier, battleship, cruiser, submarine, destroyer
-            ]
+    return ship_list
 
-def _set_origin(ship, ship_number, ship_size):
-    global carrier
-    global battleship
-    global cruiser
-    global submarine
-    global destroyer
-
+def _set_origin(owner, ship, ship_number, ship_size):
     # 0 = horizontal
     # 1 = vertical
     direction = random.randint(0, 1)
@@ -50,7 +46,7 @@ def _set_origin(ship, ship_number, ship_size):
     origin = _adjust_position(direction, origin[0], origin[1], ship_size)
 
     # assign global ship variable with data
-    globals()[ship] = [ship_number, origin, direction]
+    ship_list[str(owner)].update({ ship_number: { 'origin': origin, 'direction': direction } })
 
 def _adjust_position(direction, x, y, ship_size):
     # adjust the origin so the ship doesn't overrun
